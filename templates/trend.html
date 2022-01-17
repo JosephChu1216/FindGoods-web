@@ -9,6 +9,7 @@
 		<!-- bootstrap -->
 		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{url_for('static', filename='css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link href="{{url_for('static', filename='css/bootstrappage.css')}}" rel="stylesheet"/>
 
 		<!-- global styles -->
@@ -29,11 +30,7 @@
     <body>
 		<div id="top-bar" class="container">
 			<div class="row">
-				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="Search...">
-					</form>
-				</div>
+				<div class="span4"></div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
@@ -41,8 +38,6 @@
 								<li><a><font color="#eb4800">Hi {{ username }}!</font></a></li>
 							{% endif %}
 							<li><a href="{{ url_for('.myaccount') }}">My Account</a></li>
-<!--							<li><a href="./cart.html">Your Cart</a></li>-->
-<!--							<li><a href="./checkout.html">Checkout</a></li>-->
 							{% if current_user.is_authenticated %}
 								<li><a href="{{ url_for('.logout') }}">Logout</a></li>
 							{% else %}
@@ -78,228 +73,25 @@
 				</div>
 			</section>　
 			<section class="header_text sub">
+				<img class="pageBanner" src="{{ url_for('static', filename='img/house3.jpg') }}" alt="New products" >
 				<h1><span>趨勢分析</span></h1>
 				<div class='tableauPlaceholder' id='viz1641365247887' style='position: relative'><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='2_16413650238960&#47;1_1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1641365247887');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.maxWidth='2048px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';vizElement.style.maxHeight='987px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.maxWidth='2048px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';vizElement.style.maxHeight='987px';} else { vizElement.style.width='100%';vizElement.style.height='1677px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-<!--			<img class="pageBanner" src="{{ url_for('static', filename='img/search.png') }}" alt="New products" >-->
 			</section>
-<!--			<section class="main-content">-->
-<!--				<div class="row">-->
-<!--					<div class="span12">-->
-<!--						<div class="accordion" id="accordion2">-->
-<!--							<div class="accordion-group">-->
-<!--								<div class="accordion-heading">-->
-<!--									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Checkout Options</a>-->
-<!--								</div>-->
-<!--								<div id="collapseOne" class="accordion-body in collapse">-->
-<!--									<div class="accordion-inner">-->
-<!--										<div class="row-fluid">-->
-<!--											<div class="span6">-->
-<!--												<h4>New Customer</h4>-->
-<!--												<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>-->
-<!--												<form action="#" method="post">-->
-<!--													<fieldset>-->
-<!--														<label class="radio" for="register">-->
-<!--															<input type="radio" name="account" value="register" id="register" checked="checked">Register Account-->
-<!--														</label>-->
-<!--														<label class="radio" for="guest">-->
-<!--															<input type="radio" name="account" value="guest" id="guest">Guest Checkout-->
-<!--														</label>-->
-<!--														<br>-->
-<!--														<button class="btn btn-inverse" data-toggle="collapse" data-parent="#collapse2">Continue</button>-->
-<!--													</fieldset>-->
-<!--												</form>-->
-<!--											 </div>-->
-<!--											 <div class="span6">-->
-<!--												<h4>Returning Customer</h4>-->
-<!--												<p>I am a returning customer</p>-->
-<!--												<form action="#" method="post">-->
-<!--													<fieldset>-->
-<!--														<div class="control-group">-->
-<!--															<label class="control-label">Username</label>-->
-<!--															<div class="controls">-->
-<!--																<input type="text" placeholder="Enter your username" id="username" class="input-xlarge">-->
-<!--															</div>-->
-<!--														</div>-->
-<!--														<div class="control-group">-->
-<!--															<label class="control-label">Password</label>-->
-<!--															<div class="controls">-->
-<!--															<input type="password" placeholder="Enter your password" id="password" class="input-xlarge">-->
-<!--															</div>-->
-<!--														</div>-->
-<!--														<button class="btn btn-inverse">Continue</button>-->
-<!--													</fieldset>-->
-<!--												</form>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<div class="accordion-group">-->
-<!--								<div class="accordion-heading">-->
-<!--									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Account &amp; Billing Details</a>-->
-<!--								</div>-->
-<!--								<div id="collapseTwo" class="accordion-body collapse">-->
-<!--									<div class="accordion-inner">-->
-<!--										<div class="row-fluid">-->
-<!--											<div class="span6">-->
-<!--												<h4>Your Personal Details</h4>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">First Name</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Last Name</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Email Address</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Telephone</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Fax</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--											</div>-->
-<!--											<div class="span6">-->
-<!--												<h4>Your Address</h4>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Company</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Company ID:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Address 1:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Address 2:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> City:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Post Code:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Country:</label>-->
-<!--													<div class="controls">-->
-<!--														<select class="input-xlarge">-->
-<!--															<option value="1">Afghanistan</option>-->
-<!--															<option value="2">Albania</option>-->
-<!--															<option value="3">Algeria</option>-->
-<!--															<option value="4">American Samoa</option>-->
-<!--															<option value="5">Andorra</option>-->
-<!--															<option value="6">Angola</option>-->
-<!--														</select>-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Region / State:</label>-->
-<!--													<div class="controls">-->
-<!--														<select name="zone_id" class="input-xlarge">-->
-<!--															<option value=""> -&#45;&#45; Please Select -&#45;&#45; </option>-->
-<!--															<option value="3513">Aberdeen</option>-->
-<!--															<option value="3514">Aberdeenshire</option>-->
-<!--															<option value="3515">Anglesey</option>-->
-<!--															<option value="3516">Angus</option>-->
-<!--															<option value="3517">Argyll and Bute</option>-->
-<!--														</select>-->
-<!--													</div>-->
-<!--												</div>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<div class="accordion-group">-->
-<!--								<div class="accordion-heading">-->
-<!--									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">Confirm Order</a>-->
-<!--								</div>-->
-<!--								<div id="collapseThree" class="accordion-body collapse">-->
-<!--									<div class="accordion-inner">-->
-<!--										<div class="row-fluid">-->
-<!--											<div class="control-group">-->
-<!--												<label for="textarea" class="control-label">Comments</label>-->
-<!--												<div class="controls">-->
-<!--													<textarea rows="3" id="textarea" class="span12"></textarea>-->
-<!--												</div>-->
-<!--											</div>-->
-<!--											<button class="btn btn-inverse pull-right">Confirm order</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</section>-->
 			<section id="footer-bar">
 				<div class="row">
 					<div class="span2"></div>
 					<div class="span5">
 						<h4>Navigation</h4>
 						<ul class="nav">
-							<li><a href="./index.html">Homepage</a></li>
-							<li><a href="./myaccount.html">My Account</a></li>
-							<li><a href="./about.html">About Us</a></li>
-<!--							<li><a href="./contact.html">Contact Us</a></li>-->
-<!--							<li><a href="./cart.html">Cart</a></li>-->
-<!--							<li><a href="./register.html">Login</a></li>-->
+							<li><a href="{{ url_for('.index') }}">Homepage</a></li>
+							<li><a href="{{ url_for('.myaccount') }}">My Account</a></li>
+							<li><a href="{{ url_for('.about') }}">About Us</a></li>
 						</ul>
 					</div>
-<!--					<div class="span4">-->
-<!--						<h4><a href="myaccount.html">My Account</a></h4>-->
-<!--						<ul class="nav">-->
-<!--							<li><a href="myaccount.html">My Account</a></li>-->
-<!--							<li><a href="#">Order History</a></li>-->
-<!--							<li><a href="#">Wish List</a></li>-->
-<!--							<li><a href="#">Newsletter</a></li>-->
-<!--						</ul>-->
-<!--					</div>-->
 					<div class="span5">
 						<p class="logo"><img src="{{url_for('static', filename='img/logo.png')}}" class="site_logo" alt=""></p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<p>Hi! Please join us and pick your favorite items. Have fun 👊</p>
 						<br/>
-						<span class="social_icons">
-							<a class="facebook" href="https://www.facebook.com/oldpig81701"><i class="fab fa-facebook fa-2x"></i></a>
-							<a class="instagram" href="https://www.instagram.com/tsung_yo_chu/"><i class="fab fa-instagram fa-2x"></i></a>
-							<a class="linkedin" href="https://www.linkedin.com/in/joseph-chu-275660180"><i class="fab fa-linkedin fa-2x"></i></a>
-<!--							<a class="twitter" href="#">Twitter</a>-->
-<!--							<a class="skype" href="#">Skype</a>-->
-<!--							<a class="vimeo" href="#">Vimeo</a>-->
-						</span>
 					</div>
 				</div>
 			</section>

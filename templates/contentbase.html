@@ -9,7 +9,7 @@
 		<!-- bootstrap -->
 		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{url_for('static', filename='css/bootstrap-responsive.min.css')}}" rel="stylesheet">
-		
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link href="{{url_for('static', filename='css/bootstrappage.css')}}" rel="stylesheet"/>
 		
 		<!-- global styles -->
@@ -71,11 +71,7 @@
     <body>		
 		<div id="top-bar" class="container">
 			<div class="row">
-				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="Search...">
-					</form>
-				</div>
+				<div class="span4"></div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
@@ -83,8 +79,6 @@
 								<li><a><font color="#eb4800">Hi {{ username }}!</font></a></li>
 							{% endif %}
 							<li><a href="{{ url_for('.myaccount') }}">My Account</a></li>
-<!--							<li><a href="./cart.html">Your Cart</a></li>-->
-<!--							<li><a href="./checkout.html">Checkout</a></li>-->
 							{% if current_user.is_authenticated %}
 								<li><a href="{{ url_for('.logout') }}">Logout</a></li>
 							{% else %}
@@ -122,7 +116,6 @@
 			<section class="main-content">
 				<div class="row">
 					<div class="span6">
-<!--						<h4 class="title"><span class="text"><strong>Item</strong> Content</span></h4>-->
 						<img src="{{userselect[0][3]}}">
 					</div>
 					<div class="span6">
@@ -134,35 +127,6 @@
 					</div>
 				</div>
 			</section>
-<!--			<section  class="homepage-slider" id="home-slider">-->
-<!--				<div class="flexslider">-->
-<!--					<ul class="slides">-->
-<!--						<li>-->
-<!--							<img src="{{userselect[0][3]}}" alt="" />-->
-<!--							<div class="intro">-->
-<!--								<h1>{{userselect[0][2]}}</h1>-->
-<!--								<p><span>{{userselect[0][-3]}}</span></p>-->
-<!--								<p><span><a href="userselect[0][4]">link</a></span></p>-->
-<!--							</div>-->
-<!--						</li>-->
-						<!-- <li>
-							<img src="https://www.ikea.com.tw/dairyfarm/tw/pageImages/page__zh_tw_162401349573783886.jpeg" alt="" />
-							<div class="intro">
-								<h1>Mid season sale</h1>
-								<p><span>Up to 50% Off</span></p>
-								<p><span>On selected items online and in stores</span></p>
-							</div>
-						</li> -->
-<!--					</ul>-->
-<!--				</div>			-->
-<!--			</section>-->
-<!--			<section class="header_text">-->
-<!--				{{userselect[0][2]}}<br>-->
-<!--				{{userselect[0][6]}}-->
-				<!-- We are good at mastering trends and recommend high-quality furniture decorations for you. -->
-				<!-- <br/>Here, you'll be sure to find top quality home decor selects which fit your home style. -->
-				<!-- <br/>Don't miss to share your preference for home design with us. We're sure that our recommendation system won't let you down. -->
-<!--			</section>-->
 			<section class="main-content">
 				<div class="row">
 					<div class="span12">													
@@ -170,16 +134,13 @@
 							<div class="span12">
 								<h4 class="title">
 									<span class="pull-left"><span class="text"><span class="line">Related <strong>Products</strong></span></span></span>
-									<span class="pull-right">
-										<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-									</span>
 								</h4>
 								<div id="myCarousel" class="myCarousel carousel slide">
 									<div class="carousel-inner">
 										<div class="active item">
 											<ul class="thumbnails">
 <!--												插入迴圈-->
-												{% for i in dataInfo_drop_userselect[0:4] %}
+												{% for i in dataInfo_push[0:4] %}
 													<li class="span3">
 														<div class="product-box">
 															<span class="sale_tag"></span>
@@ -197,50 +158,9 @@
 							</div>						
 						</div>
 						<br/>
-						<!-- <div class="page-normal">
-							<a href="index.html"><</a>
-							數字1 代表當前頁面
-							<a href="index.html">1</a>
-							<a class="page-current">2</a>
-							<a href="index3.html">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
-							<a href="#">6</a>
-							<a href="#">7</a>
-							<a href="#">8</a>
-							<a href="#">9</a>
-							<a href="#">10</a>
-							……
-							<a href="#">19</a>
-							<a href="#">20</a>
-							<a href="#">&gt;</a>
-						</div> -->
 					</div>
 				</div>
 			</section>
-<!--			<section class="our_client">-->
-<!--				<h4 class="title"><span class="text">Manufactures</span></h4>-->
-<!--				<div class="row">					-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/14.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/35.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/1.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/2.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/3.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/4.png')}}"></a>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</section>-->
 			<section id="footer-bar">
 				<div class="row">
 					<div class="span2"></div>
@@ -254,15 +174,10 @@
 					</div>
 					<div class="span5">
 						<p class="logo"><img src="{{url_for('static', filename='img/logo.png')}}" class="site_logo" alt=""></p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<p>Hi! Please join us and pick your favorite items. Have fun 👊</p>
 						<br/>
-						<span class="social_icons">
-							<a class="facebook" href="https://www.facebook.com/oldpig81701"><i class="fab fa-facebook fa-2x"></i></a>
-							<a class="instagram" href="https://www.instagram.com/tsung_yo_chu/"><i class="fab fa-instagram fa-2x"></i></a>
-							<a class="linkedin" href="https://www.linkedin.com/in/joseph-chu-275660180"><i class="fab fa-linkedin fa-2x"></i></a>
-						</span>
-					</div>					
-				</div>	
+					</div>
+				</div>
 			</section>
 			<section id="copyright">
 				<span>Copyright 2013 bootstrappage template  All right reserved.</span>

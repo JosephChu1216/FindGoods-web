@@ -9,6 +9,7 @@
 		<!-- bootstrap -->
 		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{url_for('static', filename='css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link href="{{url_for('static', filename='css/bootstrappage.css')}}" rel="stylesheet"/>
 		
 		<!-- global styles -->
@@ -29,11 +30,7 @@
     <body>		
 		<div id="top-bar" class="container">
 			<div class="row">
-				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="Search...">
-					</form>
-				</div>
+				<div class="span4"></div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
@@ -41,8 +38,6 @@
 								<li><a><font color="#eb4800">Hi {{ username }}!</font></a></li>
 							{% endif %}
 							<li><a href="{{ url_for('.myaccount') }}">My Account</a></li>
-<!--							<li><a href="./cart.html">Your Cart</a></li>-->
-<!--							<li><a href="./checkout.html">Checkout</a></li>-->
 							{% if current_user.is_authenticated %}
 								<li><a href="{{ url_for('.logout') }}">Logout</a></li>
 							{% else %}
@@ -78,7 +73,7 @@
 				</div>
 			</section>				
 			<section class="header_text sub">
-			<img class="pageBanner" src="{{ url_for('static', filename='img/login.png') }}" alt="New products" >
+			<img class="pageBanner" src="{{ url_for('static', filename='img/house2.jpg') }}" alt="New products" >
 				<h1><span>以圖搜圖</span></h1>
 			</section>	
 			<section class="main-content">
@@ -107,174 +102,28 @@
 					</div>
 					<div class="span6">
 						<h4 class="title"><span class="text"><strong>Analysis</strong> Result</span></h4>
-						{% if imgform.validate_on_submit() and p %}
-							<h3><font color="#eb4800">{{ pre_item }}</font>  {{ pre_acc }}</h3>
-							<div class="product-box">
-								<span class="sale_tag"></span>
-								<p><a href="/recommend/{{p[0]}}"><img src="{{p[1]}}" alt="" /></a></p>
-								<p class="itemname"><font face="Courgette" size="1">{{p[2]}}</font></p><br/>
-								<a href="products.html" class="category"> {{pre_item}}</a>
-								<p class="price"><font face="fantasy" size="3">NT${{p[3]}}</font></p>
-							</div>
-						{% elif imgform.validate_on_submit() and p==None %}
+						{% if imgform.validate_on_submit() and candidate_list %}
+						    {% for candidate in candidate_list %}
+								<h3><font color="#eb4800">{{ candidate[0] }}</font>  {{ candidate[1] }}</h3>
+						    {%endfor%}
+						    <ul class="thumbnails">
+								{% for candidate in candidate_list %}
+								<li class="span3">
+									<div class="product-box">
+										<span class="sale_tag"></span>
+										<p><a href="/recommend/{{candidate[2][0]}}"><img src="{{candidate[2][1]}}" alt="" /></a></p>
+										<p class="itemname"><font face="Courgette" size="1">{{candidate[2][2]}}</font></p><br/>
+										<a href="products.html" class="category"> {{ candidate[0] }}</a>
+										<p class="price"><font face="fantasy" size="3">NT${{candidate[2][3]}}</font></p>
+									</div>
+								</li>
+								{%endfor%}
+							</ul>
+						{% elif imgform.validate_on_submit() and candidate_list == [] %}
 							<h3><font color="#eb4800">None</font> Result</h3>
-						    <h4>Please try another photo</h4>
+							<h4>Please try another photo</h4>
 						{% endif %}
 					</div>
-<!--											<div class="span6">-->
-<!--												<h4>Returning Customer</h4>-->
-<!--												<p>I am a returning customer</p>-->
-<!--												<form action="#" method="post">-->
-<!--													<fieldset>-->
-<!--														<div class="control-group">-->
-<!--															<label class="control-label">Username</label>-->
-<!--															<div class="controls">-->
-<!--																<input type="text" placeholder="Enter your username" id="username" class="input-xlarge">-->
-<!--															</div>-->
-<!--														</div>-->
-<!--														<div class="control-group">-->
-<!--															<label class="control-label">Password</label>-->
-<!--															<div class="controls">-->
-<!--															<input type="password" placeholder="Enter your password" id="password" class="input-xlarge">-->
-<!--															</div>-->
-<!--														</div>-->
-<!--														<button class="btn btn-inverse">Continue</button>-->
-<!--													</fieldset>-->
-<!--												</form>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<div class="accordion-group">-->
-<!--								<div class="accordion-heading">-->
-<!--									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Account &amp; Billing Details</a>-->
-<!--								</div>-->
-<!--								<div id="collapseTwo" class="accordion-body collapse">-->
-<!--									<div class="accordion-inner">-->
-<!--										<div class="row-fluid">-->
-<!--											<div class="span6">-->
-<!--												<h4>Your Personal Details</h4>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">First Name</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Last Name</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>					  -->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Email Address</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Telephone</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Fax</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--											</div>-->
-<!--											<div class="span6">-->
-<!--												<h4>Your Address</h4>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Company</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Company ID:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>					  -->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Address 1:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label">Address 2:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> City:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Post Code:</label>-->
-<!--													<div class="controls">-->
-<!--														<input type="text" placeholder="" class="input-xlarge">-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Country:</label>-->
-<!--													<div class="controls">-->
-<!--														<select class="input-xlarge">-->
-<!--															<option value="1">Afghanistan</option>-->
-<!--															<option value="2">Albania</option>-->
-<!--															<option value="3">Algeria</option>-->
-<!--															<option value="4">American Samoa</option>-->
-<!--															<option value="5">Andorra</option>-->
-<!--															<option value="6">Angola</option>-->
-<!--														</select>-->
-<!--													</div>-->
-<!--												</div>-->
-<!--												<div class="control-group">-->
-<!--													<label class="control-label"><span class="required">*</span> Region / State:</label>-->
-<!--													<div class="controls">-->
-<!--														<select name="zone_id" class="input-xlarge">-->
-<!--															<option value=""> -&#45;&#45; Please Select -&#45;&#45; </option>-->
-<!--															<option value="3513">Aberdeen</option>-->
-<!--															<option value="3514">Aberdeenshire</option>-->
-<!--															<option value="3515">Anglesey</option>-->
-<!--															<option value="3516">Angus</option>-->
-<!--															<option value="3517">Argyll and Bute</option>-->
-<!--														</select>-->
-<!--													</div>-->
-<!--												</div>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<div class="accordion-group">-->
-<!--								<div class="accordion-heading">-->
-<!--									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">Confirm Order</a>-->
-<!--								</div>-->
-<!--								<div id="collapseThree" class="accordion-body collapse">-->
-<!--									<div class="accordion-inner">-->
-<!--										<div class="row-fluid">-->
-<!--											<div class="control-group">-->
-<!--												<label for="textarea" class="control-label">Comments</label>-->
-<!--												<div class="controls">-->
-<!--													<textarea rows="3" id="textarea" class="span12"></textarea>-->
-<!--												</div>-->
-<!--											</div>									-->
-<!--											<button class="btn btn-inverse pull-right">Confirm order</button>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>				-->
-<!--					</div>-->
 				</div>
 			</section>			
 			<section id="footer-bar">
@@ -290,15 +139,10 @@
 					</div>
 					<div class="span5">
 						<p class="logo"><img src="{{url_for('static', filename='img/logo.png')}}" class="site_logo" alt=""></p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<p>Hi! Please join us and pick your favorite items. Have fun 👊</p>
 						<br/>
-						<span class="social_icons">
-							<a class="facebook" href="https://www.facebook.com/oldpig81701"><i class="fab fa-facebook fa-2x"></i></a>
-							<a class="instagram" href="https://www.instagram.com/tsung_yo_chu/"><i class="fab fa-instagram fa-2x"></i></a>
-							<a class="linkedin" href="https://www.linkedin.com/in/joseph-chu-275660180"><i class="fab fa-linkedin fa-2x"></i></a>
-						</span>
-					</div>					
-				</div>	
+					</div>
+				</div>
 			</section>
 			<section id="copyright">
 				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
