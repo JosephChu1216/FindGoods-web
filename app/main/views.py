@@ -276,7 +276,7 @@ def search():
         uploadfile_path = 'img/uploads/' + filename
         # print(uploadfile_path)
         # print(os.getcwd())
-        # pre_list = img_recognition('model-resnet50-final.h5', filename)
+        pre_list = img_recognition('model-resnet50-final.h5', filename)
         x = img_recognition(filename)
         pred = net.predict(x)[0]
         pre_list = pred_list(pred)
