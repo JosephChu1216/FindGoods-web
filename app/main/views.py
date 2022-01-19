@@ -6,7 +6,7 @@ from . import main
 from .forms import LoginForm, RegisterForm, PhotoForm
 from .. import db, mongo
 from ..Image_recognition import img_recognition, pred_list
-from ..models import Item, User, Recomm
+from ..models import Item, User, Recomm, Plform
 import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
@@ -15,7 +15,6 @@ from sqlalchemy.sql.expression import func
 import random
 import datetime
 from tensorflow.keras import models
-import unicodedata
 
 
 def get_recommendations(itemid, cosine_sim, indices, n, df2):
@@ -32,15 +31,19 @@ def get_recommendations(itemid, cosine_sim, indices, n, df2):
     return df2['title'].iloc[top_n_idx]
 
 
-def chr_width(c):
-    if unicodedata.east_asian_width(c) in ('F', 'W', 'A'):
-        return 2
+def price_tran(p):
+    int_price = str(int(p))
+    if len(int_price) > 3:
+        return int_price[:-3] + ',' + int_price[-3:]
     else:
-        return 1
+        return int_price
 
 
-def ch_length(unistr):
-    return sum([chr_width(char) for char in unistr])
+def pfno_tran(pf):
+    if pf == 10:
+        return 'IKEA'
+    else:
+        return 'TRPLUS'
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -110,17 +113,19 @@ def index():
         user = User.query.get(current_user.id)
         theid = (user.id.strip('0'))
         username = user.username
-        recdata = [[d.item1, d.item2, d.item3, d.item4, d.item5, d.item6, d.item7, d.item8, d.item9, d.item10] for d in
-                   db.session.query(Recomm).filter(Recomm.userId == theid)]
+        redata = [[d.item1, d.item2, d.item3, d.item4, d.item5, d.item6, d.item7, d.item8, d.item9, d.item10] for d in
+                  db.session.query(Recomm).filter(Recomm.userId == theid)]
         # print(recdata[0])
-        result = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
-                  db.session.query(Item).filter(Item.ITEMID.in_(recdata[0]))]
-        # print(result)
+        result = [[d.ITEMNAME, d.IMG_URL, pfno_tran(d.PFNO), price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for
+                  d in
+                  db.session.query(Item).filter(Item.ITEMID.in_(redata[0]))]
+        # print(result[:8])
     else:
         username = ''
         result = []
     tags = ('vasesbowl', 'frame', 'lamps', 'footstool', 'Cushion', 'mugs', 'desk')
-    dataInfo = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item)]
+    dataInfo = [[d.ITEMNAME, d.IMG_URL, a.PFNAME, price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d, a in
+                db.session.query(Item, Plform)]
     random.shuffle(dataInfo)
     # print(dataInfo[0])
     info = {}
@@ -129,7 +134,6 @@ def index():
             info[i] = list()
         for data in dataInfo:
             if data[5] == i:
-                data.append(ch_length(data[0]))
                 info[i].append(data)
     return render_template('index.html', username=username, dataInfo=info, tags=tags, recdata=result[:8])
 
@@ -147,14 +151,14 @@ def recommend(itemid):
     if current_user.is_authenticated:
         user = User.query.get(current_user.id)
         username = user.username
-        date_now = "D" + str(datetime.date.today()).replace("-", "")
+        date_now = "D" + str(datetime.date.today()).replace("-", "")  # 紀錄當下時間
+        # 紀錄會員點擊並儲存至mongodb
         if list(mongo.db[date_now].find({'_id': user.id.lstrip("0")})):
-            # click_itemid = "click." + itemid
-            # mongo.db[date_now].update({"name": username}, {"$set": {click_itemid: 1}})
             click_timestamp = "click." + str(round(datetime.datetime.now().timestamp()))
             mongo.db[date_now].update_one({"name": username}, {"$set": {click_timestamp: itemid}})
         else:
-            mongo.db[date_now].insert_one({'_id': user.id.lstrip("0"), "name": username, "click": {str(round(datetime.datetime.now().timestamp())): itemid}})
+            mongo.db[date_now].insert_one({'_id': user.id.lstrip("0"), "name": username,
+                                           "click": {str(round(datetime.datetime.now().timestamp())): itemid}})
     else:
         username = ''
     data = [[d.ITEMID, d.TAGS] for d in db.session.query(Item)]
@@ -165,11 +169,13 @@ def recommend(itemid):
     cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
     indices = pd.Series(df2.index, index=df2['title'])
     # print(indices)
-    # user_select = [[d.ITEMID, d.CATE] for d in db.session.query(Item).filter(Item.ITEMID == itemid)]
-    userselect = [[d.ITEMNO, d.ITEMID, d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS] for d in db.session.query(Item).filter(Item.ITEMID == itemid)]
+    userselect = [[d.ITEMNO, d.ITEMID, d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS] for d
+                  in db.session.query(Item).filter(Item.ITEMID == itemid)]
     recomItem = get_recommendations(int(itemid), cosine_sim2, indices, 6, df2).values.tolist()
-    dataInfo = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item).filter(Item.ITEMID.in_(recomItem))]
-    dataInfo_same_cate = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item).filter(Item.CATE == userselect[0][7])]
+    dataInfo = [[d.ITEMNAME, d.IMG_URL, pfno_tran(d.PFNO), price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
+                db.session.query(Item).filter(Item.ITEMID.in_(recomItem))]
+    dataInfo_same_cate = [[d.ITEMNAME, d.IMG_URL, pfno_tran(d.PFNO), price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d
+                          in db.session.query(Item).filter(Item.CATE == userselect[0][7])]
     dataInfo_push = []
     for n in dataInfo:
         if n[0] != userselect[0][2] and n[5] == userselect[0][7]:
@@ -210,11 +216,11 @@ def view(tags):
         username = ''
     page = request.args.get('page', 1, type=int)
     dataInfo = Item.query.filter(Item.CATE == tags).order_by(func.random()).paginate(page=int(page), per_page=20)
-    for n in dataInfo.items:
-        if n.PFNO == 10:
-            n.PFNO = 'IKEA'
-        else:
-            n.PFNO = 'TRPLUS'
+    # .order_by(func.random())
+    # random.shuffle(dataInfo)
+    for i in dataInfo.items:
+        i.PFNO = pfno_tran(i.PFNO)
+        i.PRICE = price_tran(i.PRICE)
     return render_template('products.html', username=username, dataInfo=dataInfo, tags=tags)
 
 
@@ -240,15 +246,18 @@ def search():
         for cls in pre_list:
             if cls[0] >= 0.9:
                 pre_item = cls[1]
-                pre_acc = "Accuracy: " + str(cls[0])
-                pre_item_list_all = [[d.ITEMID, d.IMG_URL, d.ITEMNAME, d.PRICE] for d in Item.query.filter(Item.CATE == pre_item)]
-                item_num = len(pre_item_list_all)-1
+                pre_acc = "Confidence: " + str(cls[0])
+                pre_item_list_all = [[d.ITEMNAME, d.IMG_URL, pfno_tran(d.PFNO), price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
+                                     Item.query.filter(Item.CATE == pre_item)]
+                item_num = len(pre_item_list_all) - 1
                 p = pre_item_list_all[random.randint(0, item_num)]
-                candidate_list.append([pre_item, pre_acc, p])
-                # print(p[1])
+                p.append(pre_item)
+                p.append(pre_acc)
+                candidate_list.append(p)
             else:
                 pass
-        return render_template('search.html', username=username, uploadfile_path=uploadfile_path, imgform=imgform, candidate_list=candidate_list)
+        return render_template('search.html', username=username, uploadfile_path=uploadfile_path, imgform=imgform,
+                               candidate_list=candidate_list)
     elif imgform.errors:
         print("error")
         flash(imgform.errors['image'][0])
