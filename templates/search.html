@@ -104,17 +104,22 @@
 						<h4 class="title"><span class="text"><strong>Analysis</strong> Result</span></h4>
 						{% if imgform.validate_on_submit() and candidate_list %}
 						    {% for candidate in candidate_list %}
-								<h3><font color="#eb4800">{{ candidate[0] }}</font>  {{ candidate[1] }}</h3>
+								<h3><font color="#eb4800">{{ candidate[-2] }}</font>  {{ candidate[-1] }}</h3>
 						    {%endfor%}
 						    <ul class="thumbnails">
-								{% for candidate in candidate_list %}
+								{% for i in candidate_list %}
 								<li class="span3">
 									<div class="product-box">
 										<span class="sale_tag"></span>
-										<p><a href="/recommend/{{candidate[2][0]}}"><img src="{{candidate[2][1]}}" alt="" /></a></p>
-										<p class="itemname"><font face="Courgette" size="1">{{candidate[2][2]}}</font></p><br/>
-										<a href="products.html" class="category"> {{ candidate[0] }}</a>
-										<p class="price"><font face="fantasy" size="3">NT${{candidate[2][3]}}</font></p>
+										<a href="/recommend/{{i[7]}}"><img src="{{i[1]}}" alt="" /></a>
+										{% if i[0]|length>20 %}
+										<a class="itemname" title="{{i[0]}}"><font face="Microsoft YaHei Mono" size="2.5"><strong>{{i[0][0:19]}}...</strong></font></a><br/>
+										{% else %}
+										<a class="itemname"><font face="Microsoft YaHei Mono" size="1"><strong>{{i[0]}}</strong></font></a><br/>
+										{% endif %}
+										<span class="brand">{{i[2]}} {{i[4]}}</span><br>
+										<a class="category"> {{i[5]}}</a>
+										<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
 									</div>
 								</li>
 								{%endfor%}
