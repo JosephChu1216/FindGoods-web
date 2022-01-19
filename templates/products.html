@@ -91,9 +91,9 @@
 										<span class="sale_tag"></span>
 										<a href="/recommend/{{f.ITEMID}}"><img alt="" src="{{f.IMG_URL}}"></a><br/>
 										{% if f.ITEMNAME|length>20 %}
-										<a href="/recommend/{{f.ITEMID}}" class="title">{{f.ITEMNAME[0:19]}}</a><br/>
+										<a class="title">{{f.ITEMNAME[0:19]}}</a><br/>
 										{% else %}
-										<a href="/recommend/{{f.ITEMID}}" class="title">{{f.ITEMNAME}}</a><br/>
+										<a class="title">{{f.ITEMNAME}}</a><br/>
 										{% endif %}
 										<span class="brand">{{f.PFNO}} {{f.BRAND}}</span>
 										<br>
