@@ -97,13 +97,13 @@
 						<ul>
 							<li><a>Category</a>
 								<ul>
-									<li><a href="/products/frame">Frames</a></li>
+									<li><a href="/products/frame">Frame</a></li>
 									<li><a href="/products/lamps">Lamps</a></li>
-									<li><a href="/products/vasesbowl">Vases</a></li>
-									<li><a href="/products/desk">Desks</a></li>
+									<li><a href="/products/vasesbowl">Vasebowl</a></li>
+									<li><a href="/products/desk">Desk</a></li>
 									<li><a href="/products/mugs">Mugs</a></li>
-									<li><a href="/products/footstool">Footstools</a></li>
-									<li><a href="/products/Cushion">Cushions</a></li>
+									<li><a href="/products/footstool">Footstool</a></li>
+									<li><a href="/products/Cushion">Cushion</a></li>
 								</ul>
 							</li>
 							<li><a href="{{ url_for('.search') }}">Photo to Search</a></li>
@@ -119,11 +119,11 @@
 						<img src="{{userselect[0][3]}}">
 					</div>
 					<div class="span6">
-						<h1 class="title"><font color="#eb4800">Item</font> Content</h1>
-						<h2 class="itemname"><font face="Courgette" size="5">品名: {{userselect[0][2]}}</font></h2>
-						<h2 class="category"><font face="Courgette" color="black" size="5">分類: {{userselect[0][-1]}}</font></h2>
+						<h1 class="title"><font face="Microsoft YaHei Mono" color="#eb4800">Item</font> Content</h1>
+						<h2 class="itemname"><font face="Microsoft YaHei Mono" size="5">品名: {{userselect[0][2]}}</font></h2>
+						<h2 class="category"><font face="Microsoft YaHei Mono" color="black" size="5">分類: {{userselect[0][-1]}}</font></h2>
 						<h2 class="price"><font face="fantasy" size="6">NT${{userselect[0][5]}}</font></h2>
-						<h2><a href="{{userselect[0][4]}}">按此至商品購物頁面</a></h2>
+						<h2><font face="Microsoft YaHei Mono" size="4"><a href="{{userselect[0][4]}}">按此至商品購物頁面</a></font></h2>
 					</div>
 				</div>
 			</section>
@@ -145,8 +145,8 @@
 														<div class="product-box">
 															<span class="sale_tag"></span>
 															<p><a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a></p>
-															<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p><br/>
-															<a class="category"> {{i[6]}}</a>
+															<p class="itemname"><font face="Microsoft YaHei Mono" size="2.5"><strong>{{i[0]}}</strong></font></p><br/>
+															<a class="category"><font face="Microsoft YaHei Mono" size="1"><strong>{{i[6]}}</strong></font></a>
 															<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
 														</div>
 													</li>
