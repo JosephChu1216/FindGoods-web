@@ -9,6 +9,7 @@
 		<!-- bootstrap -->
 		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{url_for('static', filename='css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link href="{{url_for('static', filename='css/bootstrappage.css')}}" rel="stylesheet"/>
 
 		<!-- global styles -->
@@ -29,11 +30,7 @@
     <body>		
 		<div id="top-bar" class="container">
 			<div class="row">
-				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="Search...">
-					</form>
-				</div>
+				<div class="span4"></div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
@@ -61,13 +58,13 @@
 						<ul>
 							<li><a>Category</a>
 								<ul>
-									<li><a href="/products/frame">Frames</a></li>
+									<li><a href="/products/frame">Frame</a></li>
 									<li><a href="/products/lamps">Lamps</a></li>
-									<li><a href="/products/vasesbowl">Vases</a></li>
-									<li><a href="/products/desk">Desks</a></li>
+									<li><a href="/products/vasesbowl">Vasebowl</a></li>
+									<li><a href="/products/desk">Desk</a></li>
 									<li><a href="/products/mugs">Mugs</a></li>
-									<li><a href="/products/footstool">Footstools</a></li>
-									<li><a href="/products/Cushion">Cushions</a></li>
+									<li><a href="/products/footstool">Footstool</a></li>
+									<li><a href="/products/Cushion">Cushion</a></li>
 								</ul>
 							</li>
 							<li><a href="{{ url_for('.search') }}">Photo to Search</a></li>
@@ -78,8 +75,8 @@
 				</div>
 			</section>			
 			<section class="header_text sub">
-			<img class="pageBanner" src="{{ url_for('static', filename='img/login.png') }}" alt="New products" >
-				<h4><span>Login or Regsiter</span></h4>
+			<img class="pageBanner" src="{{ url_for('static', filename='img/house5.jpg') }}" alt="New products" >
+				<h1><span>會員登入系統</span></h1>
 			</section>			
 			<section class="main-content">				
 				<div class="row">
@@ -125,8 +122,8 @@
 								{% endif %}
 								<div class="control-group">
 									<input tabindex="3" class="btn btn-inverse large" type="submit" value="Sign into your account">
-									<hr>
-									<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>
+<!--									<hr>-->
+<!--									<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>-->
 								</div>
 							</fieldset>
 						</form>				
@@ -216,13 +213,8 @@
 					</div>
 					<div class="span5">
 						<p class="logo"><img src="{{url_for('static', filename='img/logo.png')}}" class="site_logo" alt=""></p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<p>Hi! Please join us and pick your favorite items. Have fun 👊</p>
 						<br/>
-						<span class="social_icons">
-							<a class="facebook" href="https://www.facebook.com/oldpig81701"><i class="fab fa-facebook fa-2x"></i></a>
-							<a class="instagram" href="https://www.instagram.com/tsung_yo_chu/"><i class="fab fa-instagram fa-2x"></i></a>
-							<a class="linkedin" href="https://www.linkedin.com/in/joseph-chu-275660180"><i class="fab fa-linkedin fa-2x"></i></a>
-						</span>
 					</div>
 				</div>
 			</section>

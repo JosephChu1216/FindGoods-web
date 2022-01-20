@@ -9,7 +9,7 @@
 		<!-- bootstrap -->
 		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{url_for('static', filename='css/bootstrap-responsive.min.css')}}" rel="stylesheet">
-		
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link href="{{url_for('static', filename='css/bootstrappage.css')}}" rel="stylesheet"/>
 		
 		<!-- global styles -->
@@ -72,9 +72,9 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="Search...">
-					</form>
+<!--					<form method="POST" class="search_form">-->
+<!--						<input type="text" class="input-block-level search-query" Placeholder="Search...">-->
+<!--					</form>-->
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
@@ -83,8 +83,6 @@
 								<li><a><font color="#eb4800">Hi {{ username }}!</font></a></li>
 							{% endif %}
 							<li><a href="{{ url_for('.myaccount') }}">My Account</a></li>
-<!--							<li><a href="./cart.html">Your Cart</a></li>-->
-<!--							<li><a href="./checkout.html">Checkout</a></li>-->
 							{% if current_user.is_authenticated %}
 								<li><a href="{{ url_for('.logout') }}">Logout</a></li>
 							{% else %}
@@ -103,13 +101,13 @@
 						<ul>
 							<li><a>Category</a>
 								<ul>
-									<li><a href="/products/frame">Frames</a></li>
+									<li><a href="/products/frame">Frame</a></li>
 									<li><a href="/products/lamps">Lamps</a></li>
-									<li><a href="/products/vasesbowl">Vases</a></li>
-									<li><a href="/products/desk">Desks</a></li>
+									<li><a href="/products/vasesbowl">Vasebowl</a></li>
+									<li><a href="/products/desk">Desk</a></li>
 									<li><a href="/products/mugs">Mugs</a></li>
-									<li><a href="/products/footstool">Footstools</a></li>
-									<li><a href="/products/Cushion">Cushions</a></li>
+									<li><a href="/products/footstool">Footstool</a></li>
+									<li><a href="/products/Cushion">Cushion</a></li>
 								</ul>
 							</li>
 							<li><a href="{{ url_for('.search') }}">Photo to Search</a></li>
@@ -127,19 +125,15 @@
 							<div class="span12">
 								<h4 class="title">
 									<span class="pull-left"></span>
-									<!-- <span class="text"><span class="line"><font size="5">Guess Your <strong>Preference</strong></font></span></span> -->
 									<span class="pull-right">
 										<a class="left button" href={{"#myCarousel"~tag}} data-slide="prev"></a><a class="right button" href={{"#myCarousel"~tag}} data-slide="next"></a>
-<!--										<a class="left button" href="#myCarousel1" data-slide="prev"></a><a class="right button" href="#myCarousel1" data-slide="next"></a>-->
 									</span>
 									<center>
 										<img src="{{url_for('static', filename='img/iocn/icon/artificial-intelligence.png')}}" width="30" height="30">
 										<span class="text"><span class="line"><font size="5">Guess Your <strong>Preference</strong></font></span></span>
 										<img src="{{url_for('static', filename='img/iocn/icon/artificial-intelligence.png')}}" width="30" height="30">
 									</center>
-									
 								</h4>
-								<!-- <center><img src="{{url_for('static', filename='img/iocn/icon/artificial-intelligence.png')}}" width="50" height="50"></center> -->
 								<div id={{"myCarousel"~tag}} class="myCarousel carousel slide">
 <!--									<div id="myCarousel1" class="myCarousel carousel slide">-->
 									<div class="carousel-inner">
@@ -150,7 +144,6 @@
 													<li class="span3">
 														<div class="product-box">
 															<span class="sale_tag"></span>
-<!--															<p><a href="/recommend/{{i[-1]}}"><img src="{{url_for('static', filename=i[1])}}" alt="" /></a></p>-->
 															<p><a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a></p>
 															{% if i[-1] <= 46 %}
 																<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p><br/>
@@ -171,7 +164,6 @@
 													<li class="span3">
 														<div class="product-box">
 															<span class="sale_tag"></span>
-<!--															<p><a href="/recommend/{{i[-1]}}"><img src="{{url_for('static', filename=i[1])}}" alt="" /></a></p>-->
 															<p><a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a></p>
 															<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p><br/>
 															<a href="products.html" class="category">{{i[6]}}</a>
@@ -181,7 +173,6 @@
 												{% endfor %}
 											</ul>
 										</div>
-										<!-- <p align="right"><u><a href="/products/{{tag}}" ><font color="#eb4800" size="4"><b>morSe</b></font></a></u></p> -->
 									</div>							
 								</div>
 							</div>						
@@ -215,14 +206,14 @@
 													<li class="span3">
 														<div class="product-box">
 															<span class="sale_tag"></span>
-<!--															<p><a href="/recommend/{{i[-1]}}"><img src="{{url_for('static', filename=i[1])}}" alt="" /></a></p>-->
-															<p><a href="/recommend/{{i[-2]}}"><img src="{{i[1]}}" alt="" /></a></p>
-															{% if i[-1] <= 46 %}
-																<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p><br/>
+															<a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a>
+															{% if i[0]|length>20 %}
+															<a class="itemname" title="{{i[0]}}"><font face="Microsoft YaHei Mono" size="2.5"><strong>{{i[0][0:19]}}...</strong></font></a><br/>
 															{% else %}
-																<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p>
+															<a class="itemname"><font face="Microsoft YaHei Mono" size="1"><strong>{{i[0]}}</strong></font></a><br/>
 															{% endif %}
-															<a class="category"> {{i[4]}}</a>
+															<span class="brand">{{i[2]}} {{i[4]}}</span><br>
+															<a class="category"> {{i[5]}}</a>
 															<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
 														</div>
 													</li>
@@ -236,10 +227,14 @@
 													<li class="span3">
 														<div class="product-box">
 															<span class="sale_tag"></span>
-<!--															<p><a href="/recommend/{{i[-1]}}"><img src="{{url_for('static', filename=i[1])}}" alt="" /></a></p>-->
-															<p><a href="/recommend/{{i[-2]}}"><img src="{{i[1]}}" alt="" /></a></p>
-															<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p><br/>
-															<a class="category">{{i[4]}}</a>
+															<a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a>
+															{% if i[0]|length>20 %}
+															<a class="itemname" title="{{i[0]}}"><font face="Microsoft YaHei Mono" size="2.5"><strong>{{i[0][0:19]}}...</strong></font></a><br/>
+															{% else %}
+															<a class="itemname"><font face="Microsoft YaHei Mono" size="1"><strong>{{i[0]}}</strong></font></a><br/>
+															{% endif %}
+															<span class="brand">{{i[2]}} {{i[4]}}</span><br>
+															<a class="category"> {{i[5]}}</a>
 															<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
 														</div>
 													</li>
@@ -252,86 +247,10 @@
 							</div>						
 						</div>
 						<br/>
-<!--						<div class="page-normal">-->
-<!--							<span class="page-prev">&lt;</span>-->
-<!--							&lt;!&ndash; 數字1 代表當前頁面&ndash;&gt;-->
-<!--							<a class="page-current">1</a>-->
-<!--							<a href="index2.html">2</a>-->
-<!--							<a href="index3.html">3</a>-->
-<!--							<a href="#">4</a>-->
-<!--							<a href="#">5</a>-->
-<!--							<a href="#">6</a>-->
-<!--							<a href="#">7</a>-->
-<!--							<a href="#">8</a>-->
-<!--							<a href="#">9</a>-->
-<!--							<a href="#">10</a>-->
-<!--							<a href="#">&gt;</a>-->
-<!--						</div>-->
 					</div>
 				</div>
 			</section>
 			{%endfor%}
-<!--			{% if current_user.is_authenticated %}
-			<section class="main-content">
-				<div class="row">
-					<div class="span12">
-						<div class="row">
-							<div class="span12">
-								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line">Guess Your <strong>Preference</strong></span></span></span> -->
-<!--									<span class="pull-right">-->
-<!--										<a class="left button" href="#myCarousel-2" data-slide="prev"></a><a class="right button" href="#myCarousel-2" data-slide="next"></a>-->
-<!--									</span>-->
-								<!-- </h4>
-								<div id="myCarousel-2" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<div class="active item">
-											<ul class="thumbnails">
-												{%for i in recdata%}
-												<li class="span3">
-													<div class="product-box">
-														<span class="sale_tag"></span>
-														<p><a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a></p>
-														<p class="itemname"><font face="Courgette" size="1">{{i[0]}}</font></p><br/>
-														<a href="products.html" class="category">{{i[6]}}</a>
-														<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
-													</div>
-												</li>
-												{%endfor%}
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			{% endif %} -->
-<!--			<section class="our_client">-->
-<!--				<h4 class="title"><span class="text">Manufactures</span></h4>-->
-<!--				<div class="row">					-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/14.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/35.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/1.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/2.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/3.png')}}"></a>-->
-<!--					</div>-->
-<!--					<div class="span2">-->
-<!--						<a href="#"><img alt="" src="{{url_for('static', filename='img/clients/4.png')}}"></a>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</section>-->
-
 			<section id="footer-bar">
 				<div class="row">
 					<div class="span2"></div>
@@ -341,19 +260,14 @@
 							<li><a href="{{ url_for('.index') }}">Homepage</a></li>
 							<li><a href="{{ url_for('.myaccount') }}">My Account</a></li>
 							<li><a href="{{ url_for('.about') }}">About Us</a></li>
-						</ul>					
+						</ul>
 					</div>
 					<div class="span5">
 						<p class="logo"><img src="{{url_for('static', filename='img/logo.png')}}" class="site_logo" alt=""></p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<p>Hi! Please join us and pick your favorite items. Have fun 👊</p>
 						<br/>
-						<span class="social_icons">
-							<a class="facebook" href="https://www.facebook.com/oldpig81701"><i class="fab fa-facebook fa-2x"></i></a>
-							<a class="instagram" href="https://www.instagram.com/tsung_yo_chu/"><i class="fab fa-instagram fa-2x"></i></a>
-							<a class="linkedin" href="https://www.linkedin.com/in/joseph-chu-275660180"><i class="fab fa-linkedin fa-2x"></i></a>
-						</span>
-					</div>					
-				</div>	
+					</div>
+				</div>
 			</section>
 			<section id="copyright">
 				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
