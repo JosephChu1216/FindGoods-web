@@ -6,7 +6,7 @@ from . import main
 from .forms import LoginForm, RegisterForm, PhotoForm
 from .. import db, mongo
 from ..Image_recognition import img_recognition, pred_list
-from ..models import Item, User, Recomm, Plform
+from ..models import Item, User, Recomm
 import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
@@ -124,8 +124,8 @@ def index():
         username = ''
         result = []
     tags = ('vasesbowl', 'frame', 'lamps', 'footstool', 'Cushion', 'mugs', 'desk')
-    dataInfo = [[d.ITEMNAME, d.IMG_URL, a.PFNAME, price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d, a in
-                db.session.query(Item, Plform)]
+    dataInfo = [[d.ITEMNAME, d.IMG_URL, pfno_tran(d.PFNO), price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
+                db.session.query(Item)]
     random.shuffle(dataInfo)
     # print(dataInfo[0])
     info = {}
