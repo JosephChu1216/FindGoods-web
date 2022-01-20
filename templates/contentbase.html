@@ -132,46 +132,34 @@
 					<div class="span12">													
 						<div class="row">
 							<div class="span12">
-								<h4 class="title">
+								<center><h4 class="title">
 									<span class="pull-left"></span>
-									<!-- <span class="text"><span class="line"><font size="5">Guess Your <strong>Preference</strong></font></span></span> -->
-									<span class="pull-right">
-										<a class="left button" href={{"#myCarousel"~tag}} data-slide="prev"></a><a class="right button" href={{"#myCarousel"~tag}} data-slide="next"></a>
-<!--										<a class="left button" href="#myCarousel1" data-slide="prev"></a><a class="right button" href="#myCarousel1" data-slide="next"></a>-->
-									</span>
-								<center>
+									<span class="pull-right"></span>
 									<img src="{{url_for('static', filename='img/iocn/icon/artificial-intelligence.png')}}" width="30" height="30">
 									<span class="text"><span class="line"><font size="5">Related <strong>Products</strong></font></span></span>
 									<img src="{{url_for('static', filename='img/iocn/icon/artificial-intelligence.png')}}" width="30" height="30">
-								</center>
-								</h4>
-								<!-- <h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line">Related <strong>Products</strong></span></span></span>
-								</h4>
-								<div id="myCarousel" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<div class="active item">
-											<ul class="thumbnails">
-<!--												插入迴圈-->
-												{% for i in dataInfo_push[0:4] %}
-													<li class="span3">
-														<div class="product-box">
-															<span class="sale_tag"></span>
-															<a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a>
-															{% if i[0]|length>20 %}
-															<a class="itemname" title="{{i[0]}}"><font face="Microsoft YaHei Mono" size="2.5"><strong>{{i[0][0:19]}}...</strong></font></a><br/>
-															{% else %}
-															<a class="itemname"><font face="Microsoft YaHei Mono" size="1"><strong>{{i[0]}}</strong></font></a><br/>
-															{% endif %}
-															<span class="brand">{{i[2]}} {{i[4]}}</span><br>
-															<a class="category"> {{i[5]}}</a>
-															<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
-														</div>
-													</li>
-												{% endfor %}
-											</ul>
-										</div>
-									</div>							
+								</h4></center>
+								<div class="carousel-inner">
+									<div class="active item">
+										<ul class="thumbnails">
+											{% for i in dataInfo_push[0:4] %}
+												<li class="span3">
+													<div class="product-box">
+														<span class="sale_tag"></span>
+														<a href="/recommend/{{i[-1]}}"><img src="{{i[1]}}" alt="" /></a>
+														{% if i[0]|length>20 %}
+														<a class="itemname" title="{{i[0]}}"><font face="Microsoft YaHei Mono" size="2.5"><strong>{{i[0][0:19]}}...</strong></font></a><br/>
+														{% else %}
+														<a class="itemname"><font face="Microsoft YaHei Mono" size="1"><strong>{{i[0]}}</strong></font></a><br/>
+														{% endif %}
+														<span class="brand">{{i[2]}} {{i[4]}}</span><br>
+														<a class="category"> {{i[5]}}</a>
+														<p class="price"><font face="fantasy" size="3">NT${{i[3]}}</font></p>
+													</div>
+												</li>
+											{% endfor %}
+										</ul>
+									</div>
 								</div>
 							</div>						
 						</div>
