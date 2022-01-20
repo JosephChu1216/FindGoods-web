@@ -133,14 +133,14 @@ def index():
         recdata = [[d.item1, d.item2, d.item3, d.item4, d.item5, d.item6, d.item7, d.item8, d.item9, d.item10] for d in
                    db.session.query(Recomm).filter(Recomm.userId == theid)]
         # print(recdata[0])
-        result = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
+        result = [[d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE))[:-3] + ',' + str(round(d.PRICE))[-3:] if len(str(round(d.PRICE))) > 3 else str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
                   db.session.query(Item).filter(Item.ITEMID.in_(recdata[0]))]
         # print(result)
     else:
         username = ''
         result = []
     tags = ('vasesbowl', 'frame', 'lamps', 'footstool', 'Cushion', 'mugs', 'desk')
-    dataInfo = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item)]
+    dataInfo = [[d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE))[:-3] + ',' + str(round(d.PRICE))[-3:] if len(str(round(d.PRICE))) > 3 else str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item)]
     random.shuffle(dataInfo)
     # print(dataInfo[0])
     info = {}
@@ -194,10 +194,10 @@ def recommend(itemid):
     indices = pd.Series(df2.index, index=df2['title'])
     # print(indices)
     # user_select = [[d.ITEMID, d.CATE] for d in db.session.query(Item).filter(Item.ITEMID == itemid)]
-    userselect = [[d.ITEMNO, d.ITEMID, d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS] for d in db.session.query(Item).filter(Item.ITEMID == itemid)]
+    userselect = [[d.ITEMNO, d.ITEMID, d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE))[:-3] + ',' + str(round(d.PRICE))[-3:] if len(str(round(d.PRICE))) > 3 else str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS] for d in db.session.query(Item).filter(Item.ITEMID == itemid)]
     recomItem = get_recommendations(int(itemid), cosine_sim2, indices, 6, df2).values.tolist()
-    dataInfo = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item).filter(Item.ITEMID.in_(recomItem))]
-    dataInfo_same_cate = [[d.ITEMNAME, d.IMG_URL, d.URL, str(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item).filter(Item.CATE == userselect[0][7])]
+    dataInfo = [[d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE))[:-3] + ',' + str(round(d.PRICE))[-3:] if len(str(round(d.PRICE))) > 3 else str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item).filter(Item.ITEMID.in_(recomItem))]
+    dataInfo_same_cate = [[d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE))[:-3] + ',' + str(round(d.PRICE))[-3:] if len(str(round(d.PRICE))) > 3 else str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in db.session.query(Item).filter(Item.CATE == userselect[0][7])]
     dataInfo_push = []
     for n in dataInfo:
         if n[0] != userselect[0][2] and n[5] == userselect[0][7]:
@@ -240,6 +240,7 @@ def view(tags):
         username = ''
     page = request.args.get('page', 1, type=int)
     dataInfo = Item.query.filter(Item.CATE == tags).order_by(func.random()).paginate(page=int(page), per_page=20)
+    print(dataInfo)
     for n in dataInfo.items:
         if n.PFNO == 10:
             n.PFNO = 'IKEA'
@@ -283,7 +284,7 @@ def search():
         pre_item = pre_list[0][1]
         pre_acc = "Accuracy: " + str(pre_list[0][0])
         if pre_list[0][0] >= 0.9:
-            pre_item_list_all = [[d.ITEMID, d.IMG_URL, d.ITEMNAME, d.PRICE] for d in Item.query.filter(Item.CATE == pre_item)]
+            pre_item_list_all = [[d.ITEMID, d.IMG_URL, d.ITEMNAME, str(round(d.PRICE))[:-3] + ',' + str(round(d.PRICE))[-3:] if len(str(round(d.PRICE))) > 3 else str(round(d.PRICE))] for d in Item.query.filter(Item.CATE == pre_item)]
             item_num = len(pre_item_list_all)-1
             p = pre_item_list_all[random.randint(0, item_num)]
             # print(p[1])
