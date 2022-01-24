@@ -169,7 +169,7 @@ def recommend(itemid):
     cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
     indices = pd.Series(df2.index, index=df2['title'])
     # print(indices)
-    userselect = [[d.ITEMNO, d.ITEMID, d.ITEMNAME, d.IMG_URL, d.URL, str(round(d.PRICE)), d.BRAND, d.CATE, d.TAGS] for d
+    userselect = [[d.ITEMNO, d.ITEMID, d.ITEMNAME, d.IMG_URL, d.URL, price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS] for d
                   in db.session.query(Item).filter(Item.ITEMID == itemid)]
     recomItem = get_recommendations(int(itemid), cosine_sim2, indices, 6, df2).values.tolist()
     dataInfo = [[d.ITEMNAME, d.IMG_URL, pfno_tran(d.PFNO), price_tran(d.PRICE), d.BRAND, d.CATE, d.TAGS, d.ITEMID] for d in
@@ -257,7 +257,7 @@ def search():
             else:
                 pass
         return render_template('search.html', username=username, uploadfile_path=uploadfile_path, imgform=imgform,
-                               candidate_list=candidate_list)
+                               candidate_list=candidate_list, pre_list=pre_list)
     elif imgform.errors:
         print("error")
         flash(imgform.errors['image'][0])
