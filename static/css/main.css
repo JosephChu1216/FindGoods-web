@@ -252,10 +252,10 @@ section#footer-bar .social_icons a.linkedin {
 section#footer-bar .social_icons a.linkedin:hover {
 	background-position: -76px -29px;
 }
-section#footer-bar .social_icons a.vimeo {
+section#footer-bar .social_icons a.github {
 	background-position: -115px 0;
 }
-section#footer-bar .social_icons a.vimeo:hover {
+section#footer-bar .social_icons a.github:hover {
 	background-position: -115px -29px;
 }
 section#copyright{
@@ -564,6 +564,15 @@ section.navbar{
 	font-weight:bold;
 	margin:5px 0px 5px 0px;
 } */
+.member-box a.github{
+	background-position: -115px 0;
+	text-transform:uppercase;
+	color:#000000;
+	display:inline-block;
+	font-size:15px;
+	font-weight:bold;
+	margin:5px 0px 5px 0px;
+}
 .member-box p.price{
 	font-size:20px;
 	font-weight:300;
